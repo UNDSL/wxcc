@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNDSL | Empowering Digital Transformation</title>
+  <style>
+    :root {
+      --bg: #f4f5f7;
+      --surface: #ffffff;
+      --text: #102038;
+      --muted: #5c6675;
+      --primary: #1659c7;
+      --primary-dark: #0e3f97;
+      --hero-a: #14161b;
+      --hero-b: #21242c;
+      --border: rgba(16, 32, 56, 0.08);
+      --shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+      --radius: 24px;
+      --container: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(var(--container), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 118px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      border-radius: 12px;
+      padding: 0.7rem 0.9rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 1.65rem;
+      flex-wrap: wrap;
+    }
+
+    .menu a {
+      font-size: 0.98rem;
+      color: #1f2c3d;
+      position: relative;
+      padding: 0.4rem 0;
+    }
+
+    .menu a.active,
+    .menu a:hover {
+      color: var(--primary);
+    }
+
+    .menu a.active::after,
+    .menu a:hover::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.7rem;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--primary);
+    }
+
+    .hero-wrap {
+      padding: 1.5rem 0 2rem;
+    }
+
+    .hero {
+      background: linear-gradient(90deg, var(--hero-a), var(--hero-b));
+      color: #fff;
+      border-radius: 0;
+      min-height: 74vh;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-inner {
+      width: min(920px, calc(100% - 2rem));
+      text-align: center;
+      padding: 5.5rem 0 6rem;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.1rem);
+      line-height: 1.14;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+    }
+
+    .hero .subhead {
+      margin: 1rem 0 1.5rem;
+      color: #1f72ff;
+      font-size: clamp(1.1rem, 2.2vw, 1.9rem);
+      font-weight: 400;
+    }
+
+    .hero p {
+      margin: 0 auto;
+      max-width: 900px;
+      font-size: clamp(1rem, 1.45vw, 1.45rem);
+      color: rgba(255,255,255,0.95);
+    }
+
+    .hero-actions {
+      margin-top: 2.35rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 240px;
+      padding: 1rem 1.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-outline {
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.6);
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.08);
+      border-color: #fff;
+    }
+
+    .section {
+      padding: 3.5rem 0 5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.8rem;
+    }
+
+    h2 {
+      margin: 0 0 1rem;
+      font-size: clamp(1.8rem, 3vw, 3rem);
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+    }
+
+    .section-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .mock-visual {
+      min-height: 340px;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(22,89,199,0.18), rgba(22,89,199,0.03)),
+        linear-gradient(180deg, #d9e6ff, #f3f7ff);
+      border: 1px solid rgba(22,89,199,0.12);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .mock-visual::before,
+    .mock-visual::after {
+      content: "";
+      position: absolute;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,255,255,0.75);
+      backdrop-filter: blur(6px);
+    }
+
+    .mock-visual::before {
+      width: 62%;
+      height: 68%;
+      left: 8%;
+      top: 12%;
+    }
+
+    .mock-visual::after {
+      width: 34%;
+      height: 42%;
+      right: 10%;
+      bottom: 12%;
+    }
+
+    .footer {
+      padding: 1.5rem 0 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 920px) {
+      .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .menu {
+        position: absolute;
+        left: 1rem;
+        right: 1rem;
+        top: calc(100% + 0.6rem);
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        padding: 1rem;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+      }
+
+      .menu.open { display: flex; }
+
+      .menu a.active::after,
+      .menu a:hover::after {
+        bottom: -0.15rem;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-inner {
+        padding: 4.5rem 0;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: min(var(--container), calc(100% - 1rem));
+      }
+
+      .nav {
+        min-height: 72px;
+      }
+
+      .brand img {
+        width: 96px;
+      }
+
+      .hero-wrap {
+        padding-top: 0.75rem;
+      }
+
+      .hero-inner {
+        width: min(100%, calc(100% - 1.25rem));
+        padding: 3.4rem 0 3.8rem;
+      }
+
+      .btn {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .section-card {
+        padding: 1.35rem;
+      }
+
+      .mock-visual {
+        min-height: 260px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="UNDSL home">
+        <img src="https://3ed0420115.clvaw-cdnwnd.com/c91a939fff879eaa05168d080731fa7b/200000055-20a4d20a4e/UNDSL%20LOGO.jpeg?ph=3ed0420115" alt="UNDSL Logo" />
+      </a>
+
+      <button class="menu-toggle" aria-expanded="false" aria-controls="menu">☰ Menu</button>
+
+      <nav id="menu" class="menu" aria-label="Primary navigation">
+        <a class="active" href="#home">Home</a>
+        <a href="#about">About us</a>
+        <a href="#services">Services</a>
+        <a href="#team">Team</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#vendors">Vendors</a>
+        <a href="#contact">Contact</a>
+        <a href="#careers">Careers</a>
+        <a href="#more">More ▾</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero-wrap">
+      <div class="hero">
+        <div class="hero-inner">
+          <h1>Empowering Digital Transformation with Cutting-Edge ICT Solutions</h1>
+          <div class="subhead">Seamless Connectivity | Secure Networks | Smarter Collaboration</div>
+          <p>
+            Unlock the full potential of your business with expert-driven ICT solutions designed for seamless connectivity,
+            security, and efficiency. From secure networking to advanced collaboration, we deliver innovation that drives
+            real results. Trusted by industry leaders, our team designs, deploys, and supports world-class technology
+            solutions tailored to your needs. Partner with us to take your digital transformation to the next level.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-outline" href="#services">Explore our Services</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container grid">
+        <div class="section-card">
+          <div class="eyebrow">Connected Solutions</div>
+          <h2>Connect, secure, and modernize your business infrastructure</h2>
+          <p>
+            This section is included as a clean continuation beneath the hero so the page feels complete on desktop and mobile.
+            You can replace it with your actual company introduction, service blocks, or featured client content.
+          </p>
+        </div>
+        <div class="mock-visual" aria-hidden="true"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 UNDSL. All rights reserved.</div>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.menu');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+</body>
+</html>
